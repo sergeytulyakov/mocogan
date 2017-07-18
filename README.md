@@ -1,6 +1,6 @@
 # MoCoGAN: Decomposing Motion and Content for Video Generation
 
-This repository contains an implementation and further details of [MoCoGAN: Decomposing Motion and Content for Video Generation](https://www.google.com) by Sergey Tulyakov, Ming-Yu Liu, Xiaodong Yang, Jan Kautz.
+This repository contains an implementation and further details of [MoCoGAN: Decomposing Motion and Content for Video Generation](http://arxiv.org/abs/1707.04993) by Sergey Tulyakov, Ming-Yu Liu, Xiaodong Yang, Jan Kautz.
 
 ## Representation
 
