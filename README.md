@@ -2,6 +2,10 @@
 
 This repository contains an implementation and further details of [MoCoGAN: Decomposing Motion and Content for Video Generation](http://arxiv.org/abs/1707.04993) by Sergey Tulyakov, Ming-Yu Liu, Xiaodong Yang, Jan Kautz.
 
+CVPR Poster:
+
+[<img src="https://github.com/sergeytulyakov/mocogan/raw/master/poster/cvpr-poster-mocogan.jpg">](https://github.com/sergeytulyakov/mocogan/raw/master/poster/cvpr-poster-mocogan.pdf)
+
 ## Representation
 
 MoCoGAN is a generative model for videos, which generates videos from random inputs. It features separated representations of motion and content, offering control over what is generated. For example, MoCoGAN can generate the same object performing different actions, as well as the same action performed by different objects
@@ -43,3 +47,12 @@ Please refer to a [wiki page](https://github.com/sergeytulyakov/mocogan/wiki/Tra
 If you use MoCoGAN in your research please cite our paper:
 
 [Sergey Tulyakov, Ming-Yu Liu, Xiaodong Yang, Jan Kautz, "MoCoGAN: Decomposing Motion and Content for Video Generation"](https://arxiv.org/abs/1707.04993)
+
+```
+@article{tulyakov2017mocogan,
+  title={Mocogan: Decomposing motion and content for video generation},
+  author={Tulyakov, Sergey and Liu, Ming-Yu and Yang, Xiaodong and Kautz, Jan},
+  journal={IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2018}
+}
+```
