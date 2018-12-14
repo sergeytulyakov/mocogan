@@ -56,3 +56,7 @@ If you use MoCoGAN in your research please cite our paper:
   year={2018}
 }
 ```
+
+## Other implementations:
+1. [Alternative pytorch implementation](https://github.com/DLHacks/mocogan)
+2. [Chainer implementation](https://github.com/raahii/mocogan-chainer)
