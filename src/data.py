@@ -99,7 +99,7 @@ class VideoDataset(torch.utils.data.Dataset):
         video_len = longer // shorter
 
         # videos can be of various length, we randomly sample sub-sequences
-        if video_len > self.video_length * self.every_nth:
+        if video_len >= self.video_length * self.every_nth:
             needed = self.every_nth * (self.video_length - 1)
             gap = video_len - needed
             start = 0 if gap == 0 else np.random.randint(0, gap, 1)[0]
