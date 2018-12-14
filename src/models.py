@@ -231,6 +231,9 @@ class VideoGenerator(nn.Module):
     def sample_z_categ(self, num_samples, video_len):
         video_len = video_len if video_len is not None else self.video_length
 
+        if self.dim_z_category <= 0:
+            return None, np.zeros(num_samples)
+
         classes_to_generate = np.random.randint(self.dim_z_category, size=num_samples)
         one_hot = np.zeros((num_samples, self.dim_z_category), dtype=np.float32)
         one_hot[np.arange(num_samples), classes_to_generate] = 1
@@ -258,7 +261,10 @@ class VideoGenerator(nn.Module):
         z_category, z_category_labels = self.sample_z_categ(num_samples, video_len)
         z_motion = self.sample_z_m(num_samples, video_len)
 
-        z = torch.cat([z_content, z_category, z_motion], dim=1)
+        if z_category is not None:
+            z = torch.cat([z_content, z_category, z_motion], dim=1)
+        else:
+            z = torch.cat([z_content, z_motion], dim=1)
 
         return z, z_category_labels
 
