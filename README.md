@@ -49,11 +49,12 @@ If you use MoCoGAN in your research please cite our paper:
 [Sergey Tulyakov, Ming-Yu Liu, Xiaodong Yang, Jan Kautz, "MoCoGAN: Decomposing Motion and Content for Video Generation"](https://arxiv.org/abs/1707.04993)
 
 ```
-@article{tulyakov2017mocogan,
-  title={Mocogan: Decomposing motion and content for video generation},
-  author={Tulyakov, Sergey and Liu, Ming-Yu and Yang, Xiaodong and Kautz, Jan},
-  journal={IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2018}
+@inproceedings{Tulyakov:2018:MoCoGAN,
+ title={{MoCoGAN}: Decomposing motion and content for video generation},
+ author={Tulyakov, Sergey and Liu, Ming-Yu and Yang, Xiaodong and Kautz, Jan},
+ booktitle={IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+ pages = {1526--1535},
+ year={2018}
 }
 ```
 
