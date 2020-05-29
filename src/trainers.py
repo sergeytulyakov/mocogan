@@ -232,11 +232,11 @@ class Trainer(object):
 
         # training loop
 
-        def sample_fake_image_batch(batch_size):
-            return generator.sample_images(batch_size)
+        def sample_fake_image_batch(batch_size,category=None):
+            return generator.sample_images(batch_size, category=category)
 
-        def sample_fake_video_batch(batch_size):
-            return generator.sample_videos(batch_size)
+        def sample_fake_video_batch(batch_size, category=None):
+            return generator.sample_videos(batch_size, category=category)
 
         def init_logs():
             return {'l_gen': 0, 'l_image_dis': 0, 'l_video_dis': 0}
@@ -296,11 +296,12 @@ class Trainer(object):
 
                 generator.eval()
 
-                images, _ = sample_fake_image_batch(self.image_batch_size)
-                logger.image_summary("Images", images_to_numpy(images), batch_num)
+                for category in range(generator.dim_z_category):
+                    images, _ = sample_fake_image_batch(self.image_batch_size, category)
+                    logger.image_summary("Images(category={})".format(category), images_to_numpy(images), batch_num)
 
-                videos, _ = sample_fake_video_batch(self.video_batch_size)
-                logger.video_summary("Videos", videos_to_numpy(videos), batch_num)
+                    videos, _ = sample_fake_video_batch(self.video_batch_size, category)
+                    logger.video_summary("Videos(category={})".format(category), videos_to_numpy(videos), batch_num)
 
                 torch.save(generator, os.path.join(self.log_folder, 'generator_%05d.pytorch' % batch_num))
 

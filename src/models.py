@@ -228,13 +228,16 @@ class VideoGenerator(nn.Module):
 
         return z_m
 
-    def sample_z_categ(self, num_samples, video_len):
+    def sample_z_categ(self, num_samples, video_len, category):
         video_len = video_len if video_len is not None else self.video_length
 
         if self.dim_z_category <= 0:
             return None, np.zeros(num_samples)
 
-        classes_to_generate = np.random.randint(self.dim_z_category, size=num_samples)
+        if category is None:
+            classes_to_generate = np.random.randint(self.dim_z_category, size=num_samples)
+        else:
+            classes_to_generate = np.ones(self.dim_z_category, size=num_samples) * category
         one_hot = np.zeros((num_samples, self.dim_z_category), dtype=np.float32)
         one_hot[np.arange(num_samples), classes_to_generate] = 1
         one_hot_video = np.repeat(one_hot, video_len, axis=0)
@@ -256,9 +259,9 @@ class VideoGenerator(nn.Module):
             content = content.cuda()
         return Variable(content)
 
-    def sample_z_video(self, num_samples, video_len=None):
+    def sample_z_video(self, num_samples, video_len=None, category=None):
         z_content = self.sample_z_content(num_samples, video_len)
-        z_category, z_category_labels = self.sample_z_categ(num_samples, video_len)
+        z_category, z_category_labels = self.sample_z_categ(num_samples, video_len, category)
         z_motion = self.sample_z_m(num_samples, video_len)
 
         if z_category is not None:
@@ -268,10 +271,10 @@ class VideoGenerator(nn.Module):
 
         return z, z_category_labels
 
-    def sample_videos(self, num_samples, video_len=None):
+    def sample_videos(self, num_samples, video_len=None, category=None):
         video_len = video_len if video_len is not None else self.video_length
 
-        z, z_category_labels = self.sample_z_video(num_samples, video_len)
+        z, z_category_labels = self.sample_z_video(num_samples, video_len, category)
 
         h = self.main(z.view(z.size(0), z.size(1), 1, 1))
         h = h.view(h.size(0) / video_len, video_len, self.n_channels, h.size(3), h.size(3))
@@ -284,8 +287,8 @@ class VideoGenerator(nn.Module):
         h = h.permute(0, 2, 1, 3, 4)
         return h, Variable(z_category_labels, requires_grad=False)
 
-    def sample_images(self, num_samples):
-        z, z_category_labels = self.sample_z_video(num_samples * self.video_length * 2)
+    def sample_images(self, num_samples, category=None):
+        z, z_category_labels = self.sample_z_video(num_samples * self.video_length * 2, category=category)
 
         j = np.sort(np.random.choice(z.size(0), num_samples, replace=False)).astype(np.int64)
         z = z[j, ::]
