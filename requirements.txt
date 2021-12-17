@@ -1,0 +1,10 @@
+docopt
+pyyaml
+numpy
+matplotlib
+tqdm
+Pillow
+tensorflow
+scipy
+galpy
+tensorboard
