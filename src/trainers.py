@@ -131,7 +131,7 @@ class Trainer(object):
         batch_idx, batch = next(self.image_enumerator)
         b = batch
         if self.use_cuda:
-            for k, v in batch.iteritems():
+            for k, v in batch.items():
                 b[k] = v.cuda()
 
         if batch_idx == len(self.image_sampler) - 1:
@@ -146,7 +146,7 @@ class Trainer(object):
         batch_idx, batch = next(self.video_enumerator)
         b = batch
         if self.use_cuda:
-            for k, v in batch.iteritems():
+            for k, v in batch.items():
                 b[k] = v.cuda()
 
         if batch_idx == len(self.video_sampler) - 1:
@@ -281,7 +281,7 @@ class Trainer(object):
             if batch_num % self.log_interval == 0:
 
                 log_string = "Batch %d" % batch_num
-                for k, v in logs.iteritems():
+                for k, v in logs.items():
                     log_string += " [%s] %5.3f" % (k, v / self.log_interval)
 
                 log_string += ". Took %5.2f" % (time.time() - start_time)

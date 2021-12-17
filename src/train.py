@@ -57,6 +57,12 @@ from trainers import Trainer
 
 import data
 
+class MyTransform(object):
+    def __init__(self, n_channels):
+        self.n_channels = n_channels
+
+    def __call__(self, sample):
+        return sample[:self.n_channels, ::]
 
 def build_discriminator(type, **kwargs):
     discriminator_type = getattr(models, type)
@@ -76,18 +82,14 @@ def video_transform(video, image_transform):
 
     return vid
 
-
-if __name__ == "__main__":
-    args = docopt.docopt(__doc__)
-    print(args)
-
+def main(args):
     n_channels = int(args['--n_channels'])
 
     image_transforms = transforms.Compose([
         PIL.Image.fromarray,
         transforms.Scale(int(args["--image_size"])),
         transforms.ToTensor(),
-        lambda x: x[:n_channels, ::],
+        MyTransform(n_channels=n_channels),
         transforms.Normalize((0.5, 0.5, .5), (0.5, 0.5, 0.5)),
     ])
 
@@ -131,3 +133,8 @@ if __name__ == "__main__":
                       use_categories=args['--use_categories'])
 
     trainer.train(generator, image_discriminator, video_discriminator)
+
+if __name__ == "__main__":
+    args = docopt.docopt(__doc__)
+    print(args)
+    main(args)
