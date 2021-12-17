@@ -286,7 +286,7 @@ class Trainer(object):
 
                 log_string += ". Took %5.2f" % (time.time() - start_time)
 
-                print log_string
+                print(log_string)
 
                 for tag, value in logs.items():
                     logger.scalar_summary(tag, value / self.log_interval, batch_num)
